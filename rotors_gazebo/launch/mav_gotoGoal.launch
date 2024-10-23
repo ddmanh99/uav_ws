@@ -1,0 +1,11 @@
+<launch>
+    <arg name="mav_name" default="hummingbird"/>
+    <group ns="$(arg mav_name)">
+        <node name="lee_position_controller_node" pkg="rotors_control" type="lee_position_controller_node" output="screen">
+            <rosparam command="load" file="$(find rotors_gazebo)/resource/lee_controller_$(arg mav_name).yaml" />
+            <rosparam command="load" file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
+            <remap from="odometry" to="odometry_sensor1/odometry" />
+        </node>
+    </group>
+    <node name="goToGoal" pkg="rotors_gazebo" type="goToGoal" output="screen"/>
+</launch>
